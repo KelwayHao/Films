@@ -1,8 +1,14 @@
 package com.kelway.films.utils
 
 import android.content.Context
-import android.widget.Toast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.kelway.films.R
 
-fun showToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+fun showDialog(context: Context, message: String) {
+    MaterialAlertDialogBuilder(context)
+        .setMessage(message)
+        .setPositiveButton(context.getString(R.string.ok_button)) { dialog, _ ->
+            dialog.cancel()
+        }
+        .show()
 }

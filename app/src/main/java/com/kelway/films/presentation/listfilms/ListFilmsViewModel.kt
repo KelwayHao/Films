@@ -20,10 +20,11 @@ class ListFilmsViewModel @Inject constructor(private val interactor: FilmInterac
 
     private fun loadData() {
         viewModelScope.launch {
-            _listFilms.postValue(interactor.getFilm()
-                .sortedBy { film ->
-                    film.releaseYear
-                }.reversed()
+            _listFilms.postValue(
+                interactor.getFilm()
+                    .sortedBy { film ->
+                        film.releaseYear
+                    }.reversed()
             )
         }
     }

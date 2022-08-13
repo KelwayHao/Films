@@ -4,7 +4,7 @@ import android.app.Application
 import com.kelway.films.AppComponent
 import com.kelway.films.DaggerAppComponent
 
-class FilmsApplication: Application() {
+class FilmsApplication : Application() {
     companion object {
         var appComponent: AppComponent? = null
     }
