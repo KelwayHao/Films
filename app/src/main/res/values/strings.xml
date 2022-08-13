@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Films</string>
+    <string name="title_film">%1$s\ (%2$d\)</string>
+    <string name="message_click_film">Фильм «%1$s\» был нажат</string>
+    <string name="ok_button">OK</string>
 </resources>
