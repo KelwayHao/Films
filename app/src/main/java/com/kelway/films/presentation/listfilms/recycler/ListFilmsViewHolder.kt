@@ -7,6 +7,7 @@ import com.kelway.films.R
 import com.kelway.films.databinding.ItemFilmBinding
 import com.kelway.films.domain.model.Film
 import com.kelway.films.presentation.listener.ClickListenerFilm
+import com.kelway.films.utils.toDirectorNameWithInitials
 
 class ListFilmsViewHolder(
     private val binding: ItemFilmBinding,
@@ -32,7 +33,7 @@ class ListFilmsViewHolder(
         with(item) {
             binding.titleFilm.text =
                 context.getString(R.string.title_film, title, releaseYear)
-            binding.directorFilm.text = directorName
+            binding.directorFilm.text = directorName.toDirectorNameWithInitials()
             binding.listActorFilm.text = actors.joinToString { actor ->
                 actor.actorName
             }

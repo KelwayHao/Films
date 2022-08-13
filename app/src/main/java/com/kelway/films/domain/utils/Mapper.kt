@@ -8,7 +8,7 @@ import com.kelway.films.domain.model.Film
 fun FilmEntity.toFilm(): Film {
     return Film(
         title = title,
-        directorName = directorName.toDirectorNameWithInitials(),
+        directorName = directorName,
         releaseYear = releaseYear,
         actors = actors.toActor()
     )
@@ -18,9 +18,4 @@ fun List<ActorEntity>.toActor(): List<Actor> {
     return this.toSet().map { actorEntity ->
         Actor(actorName = actorEntity.actorName)
     }.toList()
-}
-
-fun String.toDirectorNameWithInitials(): String {
-    val name = this.split(" ")
-    return "${name[2]} ${name[0].first()}.${name[1].first()}."
 }
