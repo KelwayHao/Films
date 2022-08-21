@@ -6,14 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kelway.films.domain.interactor.FilmInteractor
 import com.kelway.films.domain.model.Film
-import com.kelway.films.utils.Request
+import com.kelway.films.utils.RequestStatus
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ListFilmsViewModel @Inject constructor(private val interactor: FilmInteractor) : ViewModel() {
 
-    private val _listFilms = MutableLiveData<Request<List<Film>>>()
-    val listFilms: LiveData<Request<List<Film>>> get() = _listFilms
+    private val _listFilms = MutableLiveData<RequestStatus<List<Film>>>()
+    val listFilms: LiveData<RequestStatus<List<Film>>> get() = _listFilms
 
     init {
         loadData()
@@ -23,11 +23,11 @@ class ListFilmsViewModel @Inject constructor(private val interactor: FilmInterac
         viewModelScope.launch {
             val requestResult = interactor.getFilm()
 
-            if (requestResult is Request.Success) {
+            if (requestResult is RequestStatus.Success) {
                 _listFilms.postValue(
-                    Request.Success(requestResult.data?.sortedBy { film ->
+                    RequestStatus.Success(requestResult.data.sortedBy { film ->
                         film.releaseYear
-                    }?.reversed()!!)
+                    }.reversed())
                 )
             } else {
                 _listFilms.postValue(requestResult)
