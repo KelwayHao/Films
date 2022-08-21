@@ -4,7 +4,7 @@ import com.kelway.films.data.model.ActorEntity
 import com.kelway.films.data.model.FilmEntity
 import com.kelway.films.domain.model.Actor
 import com.kelway.films.domain.model.Film
-import com.kelway.films.utils.Request
+import com.kelway.films.utils.RequestStatus
 
 fun FilmEntity.toFilm(): Film {
     return Film(
@@ -21,13 +21,13 @@ fun List<ActorEntity>.toActor(): List<Actor> {
     }.toList()
 }
 
-fun Request<List<FilmEntity>>.toListFilm(): Request<List<Film>> {
+fun RequestStatus<List<FilmEntity>>.toListFilm(): RequestStatus<List<Film>> {
     return when (this) {
-        is Request.Success -> Request.Success(
-            data = data!!.map { filmEntity ->
+        is RequestStatus.Success -> RequestStatus.Success(
+            data = data.map { filmEntity ->
                 filmEntity.toFilm()
             }
         )
-        is Request.Error -> Request.Error(message)
+        is RequestStatus.Error -> RequestStatus.Error(message)
     }
 }

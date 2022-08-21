@@ -9,7 +9,7 @@ import com.kelway.films.databinding.FragmentListFilmsBinding
 import com.kelway.films.presentation.FilmsApplication
 import com.kelway.films.presentation.listener.ClickListenerFilm
 import com.kelway.films.presentation.listfilms.recycler.ListFilmsAdapter
-import com.kelway.films.utils.Request
+import com.kelway.films.utils.RequestStatus
 import com.kelway.films.utils.showDialog
 import javax.inject.Inject
 
@@ -36,8 +36,8 @@ class ListFilmsFragment : Fragment(R.layout.fragment_list_films) {
         binding.recycler.adapter = adapter
         listFilmsViewModel.listFilms.observe(viewLifecycleOwner) { listFilms ->
             when (listFilms) {
-                is Request.Success -> adapter.submitItem(listFilms.data!!)
-                is Request.Error -> requireActivity().showDialog(listFilms.message!!)
+                is RequestStatus.Success -> adapter.submitItem(listFilms.data)
+                is RequestStatus.Error -> requireActivity().showDialog(listFilms.message)
             }
         }
     }
