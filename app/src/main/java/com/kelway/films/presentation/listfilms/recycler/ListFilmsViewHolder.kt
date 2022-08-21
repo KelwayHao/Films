@@ -12,7 +12,7 @@ import com.kelway.films.utils.toDirectorNameWithInitials
 class ListFilmsViewHolder(
     private val binding: ItemFilmBinding,
     private val clickListenerFilm: ClickListenerFilm
-) : RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.cardView) {
     companion object {
         fun newInstance(parent: ViewGroup, clickListenerFilm: ClickListenerFilm) =
             ListFilmsViewHolder(

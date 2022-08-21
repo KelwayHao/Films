@@ -9,6 +9,7 @@ import com.kelway.films.databinding.FragmentListFilmsBinding
 import com.kelway.films.presentation.FilmsApplication
 import com.kelway.films.presentation.listener.ClickListenerFilm
 import com.kelway.films.presentation.listfilms.recycler.ListFilmsAdapter
+import com.kelway.films.utils.RequestStatus
 import com.kelway.films.utils.showDialog
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class ListFilmsFragment : Fragment(R.layout.fragment_list_films) {
 
     private val clickListenerFilm = object : ClickListenerFilm {
         override fun action(message: String) {
-            showDialog(requireContext(), message)
+            requireActivity().showDialog(message)
         }
     }
 
@@ -34,7 +35,10 @@ class ListFilmsFragment : Fragment(R.layout.fragment_list_films) {
     private fun initView() {
         binding.recycler.adapter = adapter
         listFilmsViewModel.listFilms.observe(viewLifecycleOwner) { listFilms ->
-            adapter.submitItem(listFilms)
+            when (listFilms) {
+                is RequestStatus.Success -> adapter.submitItem(listFilms.data)
+                is RequestStatus.Error -> requireActivity().showDialog(listFilms.message)
+            }
         }
     }
 }
